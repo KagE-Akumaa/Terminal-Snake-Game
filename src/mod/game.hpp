@@ -9,6 +9,7 @@ public:
   Game(int HEIGHT, int WIDTH);
   void genGrid();
   void printGrid();
+  void resetGrid();
 
   std::vector<std::vector<char>> grid;
   std::vector<std::vector<char>> getGrid();

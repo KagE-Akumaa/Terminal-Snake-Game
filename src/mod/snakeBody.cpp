@@ -87,6 +87,7 @@ void Snake::updateSnake(Game &board, bool &game, bool &isEaten, int &score) {
   board.grid[head->pos.y][head->pos.x] = head->data;
 }
 char p = ' ';
+char peq = ' ';
 void Snake::input() {
   char ch;
   int n = read(STDIN_FILENO, &ch, 1);
@@ -100,6 +101,42 @@ void Snake::input() {
       return;
 
     p = ch;
+    if (ch == '\x1b') {
+      char seq[2];
+      read(STDIN_FILENO, &seq[0], 1);
+      read(STDIN_FILENO, &seq[1], 1);
+
+      if (seq[0] == '[') {
+
+        if ((peq == 'A' && seq[1] == 'B') || (peq == 'B' && seq[1] == 'A')) {
+          return;
+        } else if ((peq == 'C' && seq[1] == 'D') ||
+                   (peq == 'D' && seq[1] == 'C'))
+          return;
+        switch (seq[1]) {
+        case 'A':
+
+          SnakeDir.dx = 0;
+          SnakeDir.dy = -1;
+          break;
+        case 'B':
+          SnakeDir.dx = 0;
+          SnakeDir.dy = 1;
+          break;
+        case 'C':
+          SnakeDir.dx = 1;
+          SnakeDir.dy = 0;
+          break;
+        case 'D':
+          SnakeDir.dx = -1;
+          SnakeDir.dy = 0;
+          break;
+        }
+      }
+
+      peq = seq[1];
+      return;
+    }
     switch (ch) {
     case 'w':
       SnakeDir.dx = 0;
@@ -119,4 +156,14 @@ void Snake::input() {
       break;
     }
   }
+}
+void Snake::resetSnake(Game &board) {
+
+  head->pos.x = board.WIDTH / 2;
+  head->pos.y = board.HEIGHT / 2;
+  head->next = nullptr;
+  tail = head;
+
+  // update the grid so snake appear on centre of grid
+  board.grid[head->pos.y][head->pos.x] = head->data;
 }

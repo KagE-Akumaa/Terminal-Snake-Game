@@ -28,3 +28,18 @@ void Food::updateFood(Snake &snake, bool &isEaten) {
     // basically insert at head for linked list
   }
 }
+void Food::resetFood(Game &board, Snake &snake, bool &isEaten) {
+  isEaten = true;
+  if (isEaten) {
+    // gen random food update grid
+    std::uniform_int_distribution<> distx(1, board.WIDTH - 2);
+    std::uniform_int_distribution<> disty(1, board.HEIGHT - 2);
+
+    do {
+      x = distx(genx);
+      y = disty(geny);
+    } while (snake.SnakeBodyCollision(x, y));
+    board.grid[y][x] = data;
+    isEaten = false;
+  }
+}

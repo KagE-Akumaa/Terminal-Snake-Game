@@ -36,3 +36,15 @@ void Game::printGrid() {
 std::vector<std::vector<char>> Game::getGrid() { return grid; }
 int Game::getHeight() { return HEIGHT; }
 int Game::getWidth() { return WIDTH; }
+void Game::resetGrid() {
+  int n = HEIGHT;
+  int m = WIDTH;
+
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      if (grid[i][j] != '#') {
+        grid[i][j] = ' ';
+      }
+    }
+  }
+}

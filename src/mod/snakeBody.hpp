@@ -23,4 +23,5 @@ public:
   bool SnakeBodyCollision(int x, int y);
   void input();
   void updateSnake(Game &board, bool &game, bool &isEaten, int &score);
+  void resetSnake(Game &board);
 };

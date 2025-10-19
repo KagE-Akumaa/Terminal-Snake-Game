@@ -9,4 +9,5 @@ public:
   Food();
   void genFood(Game &board, Snake &snake, bool &isEaten);
   void updateFood(Snake &snake, bool &isEaten);
+  void resetFood(Game &board, Snake &snake, bool &isEaten);
 };
